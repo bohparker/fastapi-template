@@ -1,0 +1,23 @@
+python-dotenv: reading environment variables
+lagon: dependecy injection for containers
+loguru: logging
+python-multipart: receiving form data
+uvicorn: server
+httpx: async version of requests, interaction between microservices
+python-dotenv
+
+DATABASE
+SQLAlchemy
+asyncpg: asynchronous postgresql driver
+alembic
+greenlet
+
+SECURITY
+passlib
+bcrypt
+python-jose
+
+TESTING
+pytest
+pytest-asyncio
+coverage

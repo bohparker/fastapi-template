@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+python-dotenv
+
+
+python-multipart
+python-jose
+passlib
+bcrypt
+
+
+sqlalchemy
+greenlet
+asyncpg
+alembic
