@@ -6,7 +6,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 
 from security.secure import get_password_hash, get_user, \
-    authenticate_user, create_access_token, get_current_active_user
+    authenticate_user, create_access_token, get_current_active_user, \
+        CheckPermission, CheckRole
 
 from database.db_config import Session
 from database.models import User
@@ -58,8 +59,22 @@ async def login_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Dep
 
 # TEST ROUTES
 
-@router.get('/test/user')
-async def retrieve_user(req: str, current_user: Annotated[User, Depends(get_current_active_user)]):
+# user must have admin role to access this route
+@router.get('/test/user-role')
+async def retrieve_user_role(req: str, authorized: Annotated[bool, Depends(CheckRole(role='admin'))]):
+    user = await get_user(req)
+    if user:
+        return user
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail='User not found'
+    )
+    
+# user must have admin permission to access this route
+@router.get('/test/user-perm')
+async def retrieve_user_perm(
+    req: str,
+    authorized: Annotated[bool,Depends(CheckPermission(permission='admin'))]):
     user = await get_user(req)
     if user:
         return user

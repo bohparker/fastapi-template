@@ -1,6 +1,6 @@
 import os
 from datetime import datetime, timedelta
-from typing import Annotated
+from typing import Annotated, List
 from dotenv import load_dotenv
 
 from fastapi import Depends, HTTPException, status
@@ -88,3 +88,32 @@ async def get_current_active_user(current_user: Annotated[User, Depends(get_curr
             detail='Inactive user'
         )
     return current_user
+
+
+class CheckPermission:
+    def __init__(self, permission: str) -> None:
+        self.permission = permission
+        
+    def __call__(self, user: Annotated[User, Depends(get_current_active_user)]) -> bool:
+        perm_list = [perm for perm in user.role.permissions]
+        if len(perm_list) > 0:
+            for perm in perm_list:
+                if perm.name == self.permission:
+                    return True  
+    
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='Permission denied'
+        )
+        
+class CheckRole:
+    def __init__(self, role: str) -> None:
+        self.role = role
+        
+    def __call__(self, user: Annotated[User, Depends(get_current_active_user)]) -> bool:
+        if self.role != user.role.name:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail='Permission denied'
+            )
+        return True
