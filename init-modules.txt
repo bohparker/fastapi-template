@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+python-dotenv
+python-multipart
+httpx
+sqlalchemy
+asyncpg
+alembic
+greenlet
+passlib
+bcrypt
+python-jose
+pytest
+pytest-asyncio
+coverage

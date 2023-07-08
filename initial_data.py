@@ -1,7 +1,8 @@
 import asyncio
-from sqlalchemy import delete
-from db_config import Session, Model, engine
-from models import RolePermission, Role, Permission, User
+import getpass
+
+from app.database.db_config import Session, Model, engine
+from app.database.models import RolePermission, Role, Permission, User
 
 
 async def main():
@@ -12,6 +13,7 @@ async def main():
     async with Session() as session:
         async with session.begin():
             
+            # ADD ROLES AND PERMISSIONS
             admin = Role(name='admin')
             permission = Permission(name='admin')
             
@@ -22,7 +24,5 @@ async def main():
             session.add(user)
             
             
-    
-    
 if __name__ == '__main__':
     asyncio.run(main())

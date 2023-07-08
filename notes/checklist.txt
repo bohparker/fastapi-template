@@ -1,0 +1,12 @@
+decouple database/ directory
+	database directory for db_config
+	make model directory for models and requests
+	make alembic and create_data script compatible
+
+admin api
+	adding, editing, deleting users
+	pagination for users
+
+testing
+
+logging

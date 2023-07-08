@@ -4,7 +4,7 @@ from uuid import UUID, uuid4
 from sqlalchemy import Table, Column, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship, WriteOnlyMapped
 
-from .db_config import Model
+from database.db_config import Model
 
 
 # linking table for Role - Permission
