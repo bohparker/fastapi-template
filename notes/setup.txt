@@ -3,8 +3,12 @@
 
 # install requirements from requirements.txt or init-modules.txt
 
+# add .env to database/ with database url
+
+# add .env to security/ with secret key and algorithm
+
 # initialize alembic in database directory
-$ alembic init -t async app/database/migrations
+$ alembic init -t async migrations
 
 # edit .env file in migrations folder
 from db_config import Model, engine
@@ -15,13 +19,13 @@ config.set_main_option("sqlalchemy.url", engine.url.render_as_string(hide_passwo
 
 context.configure(connection=connection, target_metadata=target_metadata, run_as_batch=True)
 
-# in models.py, edit Model import:
-from db_config import Model
-
 # create initial migration
 $ alembic revision --autogenerate -m "initial migration"
 # run the migration
 $ alembic upgrade head
+
+# in models.py, edit import of Model:
+from .db_config import Model
 
 # run initial_data.py to add permissions and roles to db
 
