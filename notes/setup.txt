@@ -1,5 +1,10 @@
+# create venv in root
+# activate venv
+
+# install requirements from requirements.txt or init-modules.txt
+
 # initialize alembic in database directory
-$ alembic init -t async migrations
+$ alembic init -t async app/database/migrations
 
 # edit .env file in migrations folder
 from db_config import Model, engine
